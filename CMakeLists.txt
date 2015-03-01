@@ -9,11 +9,11 @@ set(${PROJECT_NAME}_VERSION_MINOR_1)
 
 include_directories("${PROJECT_SOURCE_DIR}/include")
 
-find_library(GLFW_LIB glfw)
-if(${GLFW_LIB} STREQUAL "GLFW_LIB-NOTFOUND")
-  message(STATUS "The GLFW libs appear to not be installed.")
-  message(FATAL_ERROR "On Ubuntu, do: sudo apt-get install libglfw-dev libglfw2")
-endif()
+# find_library(GLFW_LIB glfw)
+# if(${GLFW_LIB} STREQUAL "GLFW_LIB-NOTFOUND")
+#   message(STATUS "The GLFW libs appear to not be installed.")
+#   message(FATAL_ERROR "On Ubuntu, do: sudo apt-get install libglfw-dev libglfw2")
+# endif()
 
 find_library(USB_LIB usb-1.0)
 if(${USB_LIB} STREQUAL "USB_LIB-NOTFOUND")
@@ -29,12 +29,12 @@ add_library(${PROJECT_NAME}
 
 add_executable(ex-replugging src/examples/replugging.cpp)
 add_executable(ex-simple src/examples/simple.cpp)
-add_executable(ex-gui src/examples/gui.cpp)
+# add_executable(ex-gui src/examples/gui.cpp)
 
 target_link_libraries(${PROJECT_NAME} ${USB_LIB})
 target_link_libraries(ex-replugging ${PROJECT_NAME})
 target_link_libraries(ex-simple ${PROJECT_NAME})
-target_link_libraries(ex-gui ${PROJECT_NAME} ${GLFW_LIB} GL GLU)
+# target_link_libraries(ex-gui ${PROJECT_NAME} ${GLFW_LIB} GL GLU)
 
 install(DIRECTORY include/cflie
   DESTINATION include
