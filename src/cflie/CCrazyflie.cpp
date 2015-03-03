@@ -27,6 +27,7 @@
 
 #include "cflie/CCrazyflie.h"
 #include <cmath>
+#include <cstring>
 
 CCrazyflie::CCrazyflie(CCrazyRadio *crRadio) {
   m_crRadio = crRadio;
@@ -83,10 +84,10 @@ bool CCrazyflie::sendSetpoint(float fRoll, float fPitch, float fYaw, short sThru
 
   int nSize = 3 * sizeof(float) + sizeof(short);
   char cBuffer[nSize];
-  memcpy(&cBuffer[0 * sizeof(float)], &fRoll, sizeof(float));
-  memcpy(&cBuffer[1 * sizeof(float)], &fPitch, sizeof(float));
-  memcpy(&cBuffer[2 * sizeof(float)], &fYaw, sizeof(float));
-  memcpy(&cBuffer[3 * sizeof(float)], &sThrust, sizeof(short));
+  std::memcpy(&cBuffer[0 * sizeof(float)], &fRoll, sizeof(float));
+  std::memcpy(&cBuffer[1 * sizeof(float)], &fPitch, sizeof(float));
+  std::memcpy(&cBuffer[2 * sizeof(float)], &fYaw, sizeof(float));
+  std::memcpy(&cBuffer[3 * sizeof(float)], &sThrust, sizeof(short));
 
   CCRTPPacket *crtpPacket = new CCRTPPacket(cBuffer, nSize, 3);
   CCRTPPacket *crtpReceived = m_crRadio->sendPacket(crtpPacket);
