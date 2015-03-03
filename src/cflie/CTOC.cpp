@@ -1,6 +1,7 @@
 #include "cflie/CTOC.h"
 #include <iostream>
 #include <cstdlib>
+#include <cstring>
 
 CTOC::CTOC(CCrazyRadio *crRadio, int nPort) {
   m_crRadio = crRadio;
@@ -404,7 +405,7 @@ void CTOC::processPackets(std::list<CCRTPPacket*> lstPackets) {
 
       char* cData = crtpPacket->data();
       float fValue;
-      memcpy(&fValue, &cData[5], 4);
+      std::memcpy(&fValue, &cData[5], 4);
 
       char* cLogdata = &cData[5];
       int nOffset = 0;
@@ -434,48 +435,48 @@ void CTOC::processPackets(std::list<CCRTPPacket*> lstPackets) {
 	    case 1: { // UINT8
 	      nByteLength = 1;
 	      uint8_t uint8Value;
-	      memcpy(&uint8Value, &cLogdata[nOffset], nByteLength);
+	      std::memcpy(&uint8Value, &cLogdata[nOffset], nByteLength);
 	      fValue = uint8Value;
 	    } break;
 
 	    case 2: { // UINT16
 	      nByteLength = 2;
 	      uint16_t uint16Value;
-	      memcpy(&uint16Value, &cLogdata[nOffset], nByteLength);
+	      std::memcpy(&uint16Value, &cLogdata[nOffset], nByteLength);
 	      fValue = uint16Value;
 	    } break;
 
 	    case 3: { // UINT32
 	      nByteLength = 4;
 	      uint32_t uint32Value;
-	      memcpy(&uint32Value, &cLogdata[nOffset], nByteLength);
+	      std::memcpy(&uint32Value, &cLogdata[nOffset], nByteLength);
 	      fValue = uint32Value;
 	    } break;
 
 	    case 4: { // INT8
 	      nByteLength = 1;
 	      int8_t int8Value;
-	      memcpy(&int8Value, &cLogdata[nOffset], nByteLength);
+	      std::memcpy(&int8Value, &cLogdata[nOffset], nByteLength);
 	      fValue = int8Value;
 	    } break;
 
 	    case 5: { // INT16
 	      nByteLength = 2;
 	      int16_t int16Value;
-	      memcpy(&int16Value, &cLogdata[nOffset], nByteLength);
+	      std::memcpy(&int16Value, &cLogdata[nOffset], nByteLength);
 	      fValue = int16Value;
 	    } break;
 
 	    case 6: { // INT32
 	      nByteLength = 4;
 	      int32_t int32Value;
-	      memcpy(&int32Value, &cLogdata[nOffset], nByteLength);
+	      std::memcpy(&int32Value, &cLogdata[nOffset], nByteLength);
 	      fValue = int32Value;
 	    } break;
 
 	    case 7: { // FLOAT
 	      nByteLength = 4;
-	      memcpy(&fValue, &cLogdata[nOffset], nByteLength);
+	      std::memcpy(&fValue, &cLogdata[nOffset], nByteLength);
 	    } break;
 
 	    case 8: { // FP16
@@ -486,12 +487,12 @@ void CTOC::processPackets(std::list<CCRTPPacket*> lstPackets) {
 	      nByteLength = 2;
 	      char cBuffer1[nByteLength];
 	      char cBuffer2[4];
-	      memcpy(cBuffer1, &cLogdata[nOffset], nByteLength);
+	      std::memcpy(cBuffer1, &cLogdata[nOffset], nByteLength);
 	      cBuffer2[0] = cBuffer1[0] & 0b10000000; // Get the sign bit
 	      cBuffer2[1] = 0;
 	      cBuffer2[2] = cBuffer1[0] & 0b01111111; // Get the magnitude
 	      cBuffer2[3] = cBuffer1[1];
-	      memcpy(&fValue, cBuffer2, 4); // Put it into the float variable
+	      std::memcpy(&fValue, cBuffer2, 4); // Put it into the float variable
 	    } break;
 
 	    default: { // Unknown. This hopefully never happens.
