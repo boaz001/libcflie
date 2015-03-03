@@ -29,6 +29,8 @@
 #include <unistd.h>
 #include <iostream>
 #include <sstream>
+#include <cstring>
+#include <cstdio>
 
 CCrazyRadio::CCrazyRadio(std::string strRadioIdentifier) {
   m_strRadioIdentifier = strRadioIdentifier;
@@ -128,7 +130,7 @@ bool CCrazyRadio::startRadio() {
     int nDataRate;
     char cDataRateType;
 
-    if(sscanf(m_strRadioIdentifier.c_str(), "radio://%d/%d/%d%c",
+    if(std::sscanf(m_strRadioIdentifier.c_str(), "radio://%d/%d/%d%c",
 	      &nDongleNBR, &nRadioChannel, &nDataRate,
 	      &cDataRateType) != EOF) {
       std::cout << "Opening radio " << nDongleNBR << "/" << nRadioChannel << "/" << nDataRate << cDataRateType << std::endl;
@@ -146,7 +148,7 @@ bool CCrazyRadio::startRadio() {
       sts << (ddDescriptor.bcdDevice >> 8);
       sts << ".";
       sts << (ddDescriptor.bcdDevice & 0x0ff);
-      sscanf(sts.str().c_str(), "%f", &m_fDeviceVersion);
+      std::sscanf(sts.str().c_str(), "%f", &m_fDeviceVersion);
 
       std::cout << "Got device version " << m_fDeviceVersion << std::endl;
       if(m_fDeviceVersion < 0.3) {
@@ -331,7 +333,7 @@ CCRTPPacket *CCrazyRadio::sendPacket(CCRTPPacket *crtpSend, bool bDeleteAfterwar
       switch(sPort) {
       case 0: { // Console
 	char cText[nLength];
-	memcpy(cText, &cData[1], nLength - 1);
+	std::memcpy(cText, &cData[1], nLength - 1);
 	cText[nLength - 1] = '\0';
 
 	std::cout << "Console text: " << cText << std::endl;

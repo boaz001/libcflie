@@ -27,6 +27,7 @@
 
 // System
 #include <iostream>
+#include <csignal>
 
 // Crazyflie
 #include <cflie/CCrazyflie.h>
@@ -39,7 +40,7 @@ void interruptionHandler(int dummy = 0) {
 
 
 int main(int argc, char **argv) {
-  signal(SIGINT, interruptionHandler);
+  std::signal(SIGINT, interruptionHandler);
 
   int nReturnvalue = 0;
   int nThrust = 10001;
