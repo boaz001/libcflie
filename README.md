@@ -1,4 +1,4 @@
-Crazyflie Nano C++ Client Library [![Build Status](https://travis-ci.org/fairlight1337/libcflie.svg?branch=master)](https://travis-ci.org/fairlight1337/libcflie)
+Crazyflie Nano C++ Client Library [![Build Status](https://travis-ci.org/boaz001/libcflie.svg?branch=master)](https://travis-ci.org/boaz001/libcflie)
 =================================
 
 First of all, the Crazyflie Nano is an awesome Quadcopter by the guys
